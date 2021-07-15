@@ -1,0 +1,13 @@
+.container {
+    height: 100px;
+    text-align: left;
+    padding-left: 10px;
+}
+
+.title, .artists, .album {
+    margin: 0px auto 5px auto;
+}
+
+.album {
+    margin-top: 20px;
+}
