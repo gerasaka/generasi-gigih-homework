@@ -23,3 +23,13 @@
     left: 7px;
     transition: 0.2s;
 }
+  
+.btn:hover::after {
+    top: 0px;
+    left: 0px;
+}
+
+.btn:active {
+    background-color: #3e8e41;
+    transform: translateY(2px);
+}
