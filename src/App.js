@@ -1,14 +1,10 @@
 import './App.css';
-import Content from "./component/content"
-import data from "./data/apiData.js"
-// import detail from "./data/apiCall.js"
+import Content from "./component/content";
 
 function App() {
   return (
     <div className="App">
-      <h1>Create Playlist</h1>
-      <Content data={data}/>
-      <content />
+      <Content />
     </div>
   );
 }
