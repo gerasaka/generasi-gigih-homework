@@ -1,9 +1,10 @@
 .btn {
+    color: white;
     font-size: 20px;
     font-weight: 200;
     letter-spacing: 1px;
     padding: 10px 35px;
-    margin-left: 10px;
+    margin:auto;
     border: 1px solid black;
     border-radius: 15px;
     cursor: pointer;
@@ -13,7 +14,7 @@
   
 .btn::after {
     content: "";
-    background-color: #70ff4c;
+    background-color: #5e4cff;
     border-radius: 15px;
     width: 100%;
     z-index: -1;
@@ -30,6 +31,5 @@
 }
 
 .btn:active {
-    background-color: #3e8e41;
     transform: translateY(2px);
 }
