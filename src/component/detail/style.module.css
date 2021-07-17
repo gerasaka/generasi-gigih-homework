@@ -3,15 +3,15 @@
     height: 100px;
     text-align: left;
     padding-left: 10px;
-    width: 360px;
-    overflow: hidden;
+    width: 350px;
+}
+
+.title, .artists{ margin: 0 0 5px 0; }
+
+.album { margin-bottom: 0; }
+
+.title, .artists, .album {
     white-space: nowrap;
-}
-
-.title, .artists{
-    margin: 0 0 5px 0;
-}
-
-.album {
-    margin-bottom: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
