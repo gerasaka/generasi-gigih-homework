@@ -1,7 +1,15 @@
 import style from "./style.module.css";
 
-const Button = props => {
-    return <button className={style.btn}>{props.button}</button>;
+const Button = (props) => {
+  const handleClick = () => {
+    window.location = props.onClick;
+  };
+
+  return (
+    <button className={style.btn} onClick={handleClick}>
+      {props.label}
+    </button>
+  );
 }
 
 export default Button;
