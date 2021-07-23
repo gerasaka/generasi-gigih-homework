@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 
 import Card from "../../component/card";
-import Navbar from "../../component/navbar";
 // import data from "../../data/apiData.js";
 
 import Landing from "../landing";
@@ -10,11 +9,13 @@ export default function Content() {
   const [Token, setToken] = useState("");
   const [Track, setTrack] = useState([]);
 
+  // url????????
   const handleLogin = () => {
     const client_ID = process.env.REACT_APP_SPOTIFY_ID;
     const response_type = "token";
     const redirect_uri = "http://localhost:3000";
     const scope = "playlist-modify-private";
+    
     window.location = `https://accounts.spotify.com/authorize?client_id=${client_ID}&response_type=${response_type}&redirect_uri=${redirect_uri}&scope=${scope}&show_dialog=true`;
   };
 
@@ -66,6 +67,7 @@ export default function Content() {
             <Card
             key = {detail.id}
             image = {detail.album.images[0].url}
+            album = {detail.album.name}
             title = {detail.name}
             artist = {detail.album.name}
             url = {detail.album.external_urls.spotify}
