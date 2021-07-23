@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Button from "../../component/button"
 import Search from "../../component/search"
 
-export default function Landing({handleLogin, handleSearch}) {
+export default function Landing(props) {
   const [isLogged, setLogin] = useState(false);
 
   useEffect(() => {
@@ -15,12 +15,12 @@ export default function Landing({handleLogin, handleSearch}) {
     <div>
       {
         isLogged ? (
-          <Search handleSearch={handleSearch} />
+          <Search handleSearch={props.handleSearch} name="query" placeholder="Artist or Album"/>
         ) : (
           <>
             <h1>Welcome Fellas</h1>
             <p>To continue, log in with Spotify</p>
-            <div onClick={handleLogin}>
+            <div onClick={props.handleLogin}>
               <Button label="Login" />
             </div>
           </>
