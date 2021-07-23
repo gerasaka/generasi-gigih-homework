@@ -1,5 +1,5 @@
 import './App.css';
-import Content from './pages/createPlaylist';
+import Content from './pages/create-playlist';
 
 
 function App() {
