@@ -58,7 +58,7 @@ export default function Content() {
 
   return (
     <>
-      <Navbar handleSearch={handleSearch} handleClick={handleLogin} />
+      <Landing handleSearch={handleSearch} handleLogin={handleLogin} />
       <div>
         {
           Token ? (   
@@ -71,7 +71,7 @@ export default function Content() {
             url = {detail.album.external_urls.spotify}
             />          
             ))
-          ) : <Landing />
+          ) : <div></div>
         }
       </div>
     </>
