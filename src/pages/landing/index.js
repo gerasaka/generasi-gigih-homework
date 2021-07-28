@@ -1,31 +1,16 @@
-import { useState, useEffect } from "react";
-import Button from "../../component/button"
-import Search from "../../component/search"
+import Button from "../../components/button"
 
 export default function Landing(props) {
-  const [isLogged, setLogin] = useState(false);
 
-  useEffect(() => {
-    if (window.location.hash) {
-      setLogin(true);
-    }
-  }, []);
+  const handleClick = () => {
+    return window.location = props.redirect();
+  };
 
   return (
-    <div>
-      {
-        isLogged ? (
-          <Search handleSearch={props.handleSearch} name="query" placeholder="Artist or Album"/>
-        ) : (
-          <>
-            <h1>Welcome Fellas</h1>
-            <p>To continue, log in with Spotify</p>
-            <div onClick={props.handleLogin}>
-              <Button label="Login" />
-            </div>
-          </>
-        )
-      }
-    </div>
+    <>
+      <h1>Welcome Fellas</h1>
+      <p>To continue, log in with Spotify</p>
+      <Button label="Login" onClick={handleClick}/>
+    </>
   );
 }
