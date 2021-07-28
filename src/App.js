@@ -4,9 +4,8 @@ import { handleAuth, getTokenFromUrl } from './functions/auth';
 import Home from './pages/Home';
 import Landing from './pages/landing';
 
-
 function App() {
-  const [isLogged, setLogin] = useState(false);
+  const [isLogin, setLogin] = useState(false);
   const [Token, setToken] = useState("");
 
   useEffect(() => {
@@ -18,7 +17,7 @@ function App() {
   }, []);
 
   return (
-      isLogged ? <Home token={Token} /> : <Landing redirect={handleAuth}/>
+      isLogin ? <Home token={Token} /> : <Landing redirect={handleAuth}/>
   );
 }
 
