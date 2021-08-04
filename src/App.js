@@ -6,6 +6,8 @@ import Landing from './pages/Landing';
 import { useDispatch, useSelector } from 'react-redux';
 import { storeToken } from "./redux/slice"
 
+import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
+
 function App() {
   const [isLogin, setLogin] = useState(false);
   const [userID, setUserID] = useState("");
@@ -27,7 +29,17 @@ function App() {
   }, [dispatch]);
 
   return (
-      isLogin ? <Home token={token} userID={userID} /> : <Landing redirect={handleAuth}/>
+      // isLogin ? <Home token={token} userID={userID} /> : <Landing redirect={handleAuth}/>
+      <Router>
+        <Switch>
+          <Route path="/create-playlist">
+            {isLogin ? <Home token={token} userID={userID} /> : <Redirect to="/" />}
+          </Route>
+          <Route path="/">
+            {isLogin ? <Redirect to="/create-playlist" /> : <Landing redirect={handleAuth}/>}
+          </Route>
+        </Switch>
+      </Router>
   );
 }
 
