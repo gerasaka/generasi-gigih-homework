@@ -1,5 +1,3 @@
-import axios from "axios";
-
 const handleAuth = () => {
   const clientId = process.env.REACT_APP_SPOTIFY_ID;
   const responseType = "token";

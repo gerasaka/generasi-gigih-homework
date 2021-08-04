@@ -1,9 +1,7 @@
 import { useState } from "react";
 import Search from "../../components/Search";
 import TrackCard from "../../components/TrackCard";
-import { createPlaylist, getTrackData } from "../../services/spotifyTrackCall";
-
-import axios from "axios";
+import { getTrackData } from "../../services/spotifyTrackCall";
 
 export default function Home({ token, userID }) {
   const [tracks, setTracks] = useState([]);
@@ -78,6 +76,9 @@ export default function Home({ token, userID }) {
     });
     alert("Create Playlist berhasil");
   };
+
+  console.log("ini adalah token ",token);
+
   return (
     <>
       <div>
