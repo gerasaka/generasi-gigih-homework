@@ -1,54 +1,124 @@
 import { useState } from "react";
+import Search from "../../components/Search";
+import TrackCard from "../../components/TrackCard";
+import { createPlaylist, getTrackData } from "../../services/spotifyTrackCall";
+
 import axios from "axios";
 
-import Search from "../../components/search";
-import TrackCard from "../../components/trackCard";
-// import data from "../../data/apiData.js";
+export default function Home({ token, userID }) {
+  const [tracks, setTracks] = useState([]);
+  const [selected, setSelected] = useState([]);
+  const [postPlaylist, setPostPlaylist] = useState({
+    name: "",
+    description: "",
+    public: false,
+    collaborative: false,
+  });
 
-export default function Home({token}) {
-  const [Track, setTrack] = useState([]);
-  const [songList, setSongList] = useState([]);
-  const [isSelect, setSelect] = useState(false);
-
-  const handleSearch = e => {
+  const handleSearch = (e) => {
     e.preventDefault();
     const query = e.target.query.value;
-    getTrackData(query);
+    getTrackData(query, token, setTracks);
   };
 
-  const getTrackData = query => {
-    const url = `https://api.spotify.com/v1/search?q=${query}&type=track&limit=10`;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setPostPlaylist({ ...postPlaylist, [name]: value });
+  };
 
-    axios.get(url, {
-      headers: { Authorization: "Bearer " + token.access_token }
+  const handleFormSubmit = (e) => {
+    e.preventDefault();
+    createPlaylist(postPlaylist);
+  };
+
+  const createPlaylist = (obj) => {
+    fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + token,
+      },
+      body: JSON.stringify({
+        name: obj.name,
+        public: false,
+        collaborative: false,
+        description: obj.description,
+      }),
     })
-      .then(res => {
-        setTrack(res.data.tracks.items);
-      })
+      .then((res) => res.json())
+      .then((data) => addTracks(data.id));
   };
 
+  const addTracks = (playlistId) => {
+    const uri = selected.map((track) => track);
+    console.log(uri);
+    fetch(
+      `https://api.spotify.com/v1/playlists/${playlistId}/tracks?position=0&uris=${uri}`,
+      {
+        method: "POST",
+        headers: {
+          Authorization: "Bearer " + token,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          uris: uri,
+          position: 0,
+        }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+
+    setSelected([]);
+    setPostPlaylist({
+      name: "",
+      description: "",
+      public: false,
+      collaborative: false,
+    });
+    alert("Create Playlist berhasil");
+  };
   return (
     <>
-      <Search handleSearch={handleSearch} name="query" placeholder="Find Songs"/>
       <div>
-        {             
-          Track.map(detail => (            
-          <TrackCard
-          id = {detail.id}
-          image = {detail.album.images[0].url}
-          album = {detail.album.name}
-          title = {detail.name}
-          artist = {detail.artists[0].name}
-          url = {detail.album.external_urls.spotify}
-          
-          list = {songList}
-          setList = {setSongList}
-          isSelect = {isSelect}
-          setSelect = {setSelect}
+        <form onSubmit={handleFormSubmit}>
+          <label htmlFor="name">Playlist name</label>
+          <input
+            id="name"
+            name="name"
+            type="text"
+            minLength="10"
+            onChange={handleChange}
           />
-          ))
-        }
+          <label htmlFor="description">Description</label>
+          <textarea
+            id="description"
+            name="description"
+            minLength="20"
+            onChange={handleChange}
+          ></textarea>
+          <button type="submit">Create Playlist</button>
+        </form>
       </div>
+
+      <Search
+        handleSearch={handleSearch}
+        name="query"
+        placeholder="Find Songs"
+      />
+      {tracks.map((track) => (
+        <TrackCard
+          key={track.id}
+          image={track.album.images[0].url}
+          album={track.album.name}
+          title={track.name}
+          artist={track.artists[0].name}
+          // url = {track.album.external_urls.spotify}
+          uri={track.uri}
+          selected={selected}
+          setSelected={setSelected}
+        />
+      ))}
     </>
   );
 }

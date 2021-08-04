@@ -1,23 +1,26 @@
 import { useState, useEffect } from 'react';
-import { handleAuth, getTokenFromUrl } from './functions/auth';
+import { handleAuth, getSpotifyToken, getUserData } from './services/spotifyAuth';
 
 import Home from './pages/Home';
-import Landing from './pages/landing';
+import Landing from './pages/Landing';
 
 function App() {
   const [isLogin, setLogin] = useState(false);
-  const [Token, setToken] = useState("");
+  const [userID, setUserID] = useState("");
+  
+  const [token, setToken] = useState("");
 
   useEffect(() => {
     if (window.location.hash) {
-      const accessToken = getTokenFromUrl(window.location.hash);
-      setToken(accessToken);
+      const {access_token} = getSpotifyToken(window.location.hash);
+      setToken(access_token);
+      getUserData(access_token).then((data) => setUserID(data.id));
       setLogin(true);
     }
-  }, []);
+  }, [token]);
 
   return (
-      isLogin ? <Home token={Token} /> : <Landing redirect={handleAuth}/>
+      isLogin ? <Home token={token} userID={userID} /> : <Landing redirect={handleAuth}/>
   );
 }
 
