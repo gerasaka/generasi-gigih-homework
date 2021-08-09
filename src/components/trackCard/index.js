@@ -3,16 +3,20 @@ import Detail from "../TrackDetail";
 // import Button from "../Button";
 
 import style from "./style.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { storeSelectedTrack } from "../../store/trackSlice";
 
 const TrackCard = (props) => {
-	const {uri, album, title, artist, image, selected, setSelected} = props;
-	// const {} = props;
+  const {selectedTracks} = useSelector(state => state.track);
+  const dispatch = useDispatch();
+
+	const {uri, album, title, artist, image} = props;
 
   const handleClick = () => {
-    if (selected.includes(uri)) {
-			setSelected(selected.filter((value) =>  value !== uri));
+    if (selectedTracks.includes(uri)) {
+      dispatch(storeSelectedTrack(selectedTracks.filter((value) =>  value !== uri)))
     } else {
-			return setSelected([...selected, uri]);
+      return dispatch(storeSelectedTrack([...selectedTracks, uri]))
 		}
   };
 
@@ -22,7 +26,7 @@ const TrackCard = (props) => {
       <Detail title={title} artists={artist} album={album} />
       <button onClick={handleClick}>
         {
-          selected.includes(uri) ? "Deselect" : "Select"
+          selectedTracks.includes(uri) ? "Deselect" : "Select"
         }
       </button>
     </div>
