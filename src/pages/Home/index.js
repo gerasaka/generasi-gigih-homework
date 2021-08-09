@@ -1,83 +1,46 @@
-import { useState } from "react";
 import Search from "../../components/Search";
 import TrackCard from "../../components/TrackCard";
-import { getTrackData } from "../../services/spotifyTrackCall";
+import getTrackData from "../../services/spotify/getTrack";
+import { useDispatch, useSelector } from "react-redux";
+import { storeSelectedTrack, getTracks, create } from "../../store/trackSlice"
+import createPlaylist from "../../services/spotify/postPlaylist";
 
-export default function Home({ token, userID }) {
-  const [tracks, setTracks] = useState([]);
-  const [selected, setSelected] = useState([]);
-  const [postPlaylist, setPostPlaylist] = useState({
-    name: "",
-    description: "",
-    public: false,
-    collaborative: false,
-  });
+const Home = () => {
+  const { accessToken, userProfile } = useSelector(state => state.auth);
+  const { tracks, selectedTracks, playlist} = useSelector(state => state.track);
+  
+  const dispatch = useDispatch();
 
   const handleSearch = (e) => {
     e.preventDefault();
     const query = e.target.query.value;
-    getTrackData(query, token, setTracks);
+    getTrackData(query, accessToken)
+    .then(res => {
+      dispatch(getTracks(res.data.tracks.items))
+    })
   };
-
+  
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setPostPlaylist({ ...postPlaylist, [name]: value });
+    dispatch(create({ ...playlist, [name]: value }))
   };
 
   const handleFormSubmit = (e) => {
     e.preventDefault();
-    createPlaylist(postPlaylist);
-  };
-
-  const createPlaylist = (obj) => {
-    fetch(`https://api.spotify.com/v1/users/${userID}/playlists`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: "Bearer " + token,
-      },
-      body: JSON.stringify({
-        name: obj.name,
+    createPlaylist(playlist, accessToken, userProfile, selectedTracks)
+    .then(()=> {
+      dispatch(storeSelectedTrack([]));
+      dispatch(create({
+        name: "",
+        description: "",
         public: false,
         collaborative: false,
-        description: obj.description,
-      }),
+      }))
     })
-      .then((res) => res.json())
-      .then((data) => addTracks(data.id));
+
+    console.log(playlist);
+    alert("Playlist was Created");
   };
-
-  const addTracks = (playlistId) => {
-    const uri = selected.map((track) => track);
-    console.log(uri);
-    fetch(
-      `https://api.spotify.com/v1/playlists/${playlistId}/tracks?position=0&uris=${uri}`,
-      {
-        method: "POST",
-        headers: {
-          Authorization: "Bearer " + token,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          uris: uri,
-          position: 0,
-        }),
-      }
-    )
-      .then((res) => res.json())
-      .then((data) => console.log(data));
-
-    setSelected([]);
-    setPostPlaylist({
-      name: "",
-      description: "",
-      public: false,
-      collaborative: false,
-    });
-    alert("Create Playlist berhasil");
-  };
-
-  console.log("ini adalah token ",token);
 
   return (
     <>
@@ -116,10 +79,10 @@ export default function Home({ token, userID }) {
           artist={track.artists[0].name}
           // url = {track.album.external_urls.spotify}
           uri={track.uri}
-          selected={selected}
-          setSelected={setSelected}
         />
       ))}
     </>
   );
 }
+
+export default Home;
