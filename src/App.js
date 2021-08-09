@@ -1,13 +1,11 @@
-import { handleAuth, getSpotifyToken, getUserData } from './services/spotifyAuth';
-
 import Home from './pages/Home';
 import Landing from './pages/Landing';
-import { useDispatch, useSelector } from 'react-redux';
-
+import useAuth from './libraries/checkLogin';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 
+
 function App() {
-  const { isLogin } = useSelector(state => state.login)
+  const { isLogin } = useAuth();
 
   return (
       <Router>
@@ -16,7 +14,7 @@ function App() {
             {isLogin ? <Home /> : <Redirect to="/" />}
           </Route>
           <Route path="/">
-            {isLogin ? <Redirect to="/create-playlist" /> : <Landing redirect={handleAuth}/>}
+            {isLogin ? <Redirect to="/create-playlist" /> : <Landing />}
           </Route>
           <Route><h1>404</h1></Route>
         </Switch>
