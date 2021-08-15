@@ -3,7 +3,6 @@ import Landing from './pages/Landing';
 import useAuth from './libraries/checkLogin';
 import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-dom"
 
-
 function App() {
   const { isLogin } = useAuth();
 
