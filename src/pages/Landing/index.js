@@ -1,6 +1,5 @@
 import { handleAuth } from "../../services/spotify/auth";
 
-
 export default function Landing() {
   return (
     <div>
