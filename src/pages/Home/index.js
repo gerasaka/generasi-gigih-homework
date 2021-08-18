@@ -1,72 +1,15 @@
-import Search from "../../components/Search";
+import Search from "../../components/Search"; 
 import TrackCard from "../../components/TrackCard";
-import getTrackData from "../../services/spotify/getTrack";
-import { useDispatch, useSelector } from "react-redux";
-import { storeSelectedTrack, getTracks, create } from "../../store/trackSlice"
-import createPlaylist from "../../services/spotify/postPlaylist";
+import { useSelector } from "react-redux";
+import PlaylistForm from "../../components/PlaylistForm";
 
 const Home = () => {
-  const { accessToken, userProfile } = useSelector(state => state.auth);
-  const { tracks, selectedTracks, playlist} = useSelector(state => state.track);
-  
-  const dispatch = useDispatch();
-
-  const handleSearch = (e) => {
-    e.preventDefault();
-    const query = e.target.query.value;
-    getTrackData(query, accessToken)
-    .then(res => {
-      dispatch(getTracks(res.data.tracks.items))
-    })
-  };
-  
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    dispatch(create({ ...playlist, [name]: value }))
-  };
-
-  const handleFormSubmit = (e) => {
-    e.preventDefault();
-    createPlaylist(playlist, accessToken, userProfile, selectedTracks)
-    .then(()=> {
-      dispatch(storeSelectedTrack([]));
-      dispatch(create({
-        name: "",
-        description: "",
-        public: false,
-        collaborative: false,
-      }))
-    })
-
-    console.log(playlist);
-    alert("Playlist was Created");
-  };
+  const { tracks } = useSelector(state => state.track);
 
   return (
     <>
-      <div>
-        <form onSubmit={handleFormSubmit}>
-          <label htmlFor="name">Playlist name</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            minLength="10"
-            onChange={handleChange}
-          />
-          <label htmlFor="description">Description</label>
-          <textarea
-            id="description"
-            name="description"
-            minLength="20"
-            onChange={handleChange}
-          ></textarea>
-          <button type="submit">Create Playlist</button>
-        </form>
-      </div>
-
+      <PlaylistForm></PlaylistForm>
       <Search
-        handleSearch={handleSearch}
         name="query"
         placeholder="Find Songs"
       />
