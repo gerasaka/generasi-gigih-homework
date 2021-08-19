@@ -32,7 +32,7 @@ const useEventHandler = () => {
     })
   
     console.log(playlist);
-    alert("Playlist was Created");
+    alert("Playlist Created");
   };
   
   const handleChange = (e) => {
