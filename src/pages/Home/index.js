@@ -4,6 +4,7 @@ import Header from "../../components/layout/Header";
 import Footer from "../../components/layout/Footer";
 import { useSelector } from "react-redux";
 import PlaylistForm from "../../components/PlaylistForm";
+import style from "./style.module.css"
 
 const Home = () => {
   const { tracks } = useSelector(state => state.track);
@@ -13,6 +14,7 @@ const Home = () => {
       <Header />
       <PlaylistForm />
       <Search />
+      <div className={style.container}>
       {tracks.map((track) => (
         <TrackCard
           key={track.id}
@@ -24,6 +26,7 @@ const Home = () => {
           uri={track.uri}
         />
       ))}
+      </div>
       <Footer />
     </>
   );
