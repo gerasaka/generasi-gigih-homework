@@ -1,5 +1,7 @@
 import Search from "../../components/Search"; 
 import TrackCard from "../../components/TrackCard";
+import Header from "../../components/layout/Header";
+import Footer from "../../components/layout/Footer";
 import { useSelector } from "react-redux";
 import PlaylistForm from "../../components/PlaylistForm";
 
@@ -8,11 +10,9 @@ const Home = () => {
 
   return (
     <>
-      <PlaylistForm></PlaylistForm>
-      <Search
-        name="query"
-        placeholder="Find Songs"
-      />
+      <Header />
+      <PlaylistForm />
+      <Search />
       {tracks.map((track) => (
         <TrackCard
           key={track.id}
@@ -24,6 +24,7 @@ const Home = () => {
           uri={track.uri}
         />
       ))}
+      <Footer />
     </>
   );
 }
