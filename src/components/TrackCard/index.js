@@ -1,4 +1,3 @@
-import AlbumImg from "../TrackImage";
 import Detail from "../TrackDetail";
 // import Button from "../Button";
 
@@ -22,9 +21,9 @@ const TrackCard = (props) => {
 
   return (
     <div className={style.card}>
-      <AlbumImg src={image} />
+      <img className={style.image} src={image} alt={title} />
       <Detail title={title} artists={artist} album={album} />
-      <button onClick={handleClick}>
+      <button onClick={handleClick} className={style.btn}>
         {
           selectedTracks.includes(uri) ? "Deselect" : "Select"
         }
