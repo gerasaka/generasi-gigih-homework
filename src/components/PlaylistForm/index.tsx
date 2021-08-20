@@ -6,13 +6,13 @@ const PlaylistForm = () => {
   const {handleFormSubmit, handleChange} = useEventHandler();
   return(
     <form onSubmit={handleFormSubmit} className={style.container}>
-      <label htmlFor="playlist-name">Playlist name</label>
+      <label htmlFor="name">Playlist name</label>
       <Input
         variant="filled"
         size="sm"
-        id="playlist-name"
-        name="playlist-name"
-        minLength="10"
+        id="name"
+        name="name"
+        minLength={10}
         onChange={handleChange}
       />
       <label htmlFor="description">Description</label>
@@ -21,7 +21,7 @@ const PlaylistForm = () => {
         size="sm"
         id="description"
         name="description"
-        minLength="20"
+        minLength={20}
         onChange={handleChange}
       />
       <Button type="submit" colorScheme="blue">Create Playlist</Button>

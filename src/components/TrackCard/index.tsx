@@ -2,20 +2,29 @@ import Detail from "../TrackDetail";
 // import Button from "../Button";
 
 import style from "./style.module.css";
-import { useDispatch, useSelector } from "react-redux";
 import { storeSelectedTrack } from "../../store/trackSlice";
 
-const TrackCard = (props) => {
-  const {selectedTracks} = useSelector(state => state.track);
-  const dispatch = useDispatch();
+import { useAppDispatch, useAppSelector } from "../../store";
 
-	const {uri, album, title, artist, image} = props;
+type TrackData = {
+  uri: string;
+  album: string
+  title: string;
+  artist: string;
+  image: string;
+};
 
-  const handleClick = () => {
+const TrackCard = ({uri, album, title, artist, image}: TrackData) => {
+  const {selectedTracks} = useAppSelector(state => state.track);
+  const dispatch = useAppDispatch();
+
+	// const {uri, album, title, artist, image} = props;
+
+  const handleClick = (): void => {
     if (selectedTracks.includes(uri)) {
-      dispatch(storeSelectedTrack(selectedTracks.filter((value) =>  value !== uri)))
+      dispatch(storeSelectedTrack(selectedTracks.filter((value: any) =>  value !== uri)))
     } else {
-      return dispatch(storeSelectedTrack([...selectedTracks, uri]))
+      dispatch(storeSelectedTrack([...selectedTracks, uri]))
 		}
   };
 
