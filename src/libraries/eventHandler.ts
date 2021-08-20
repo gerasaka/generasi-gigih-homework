@@ -1,5 +1,4 @@
 import getTrackData from "../services/spotify/getTrack";
-import { useSelector, useDispatch } from "react-redux";
 import { storeSelectedTrack, getTracks, create } from "../store/trackSlice"
 import createPlaylist from "../services/spotify/postPlaylist";
 import { useAppDispatch, useAppSelector } from "../store";
