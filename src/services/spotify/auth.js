@@ -1,7 +1,7 @@
 const handleAuth = () => {
   const clientId = process.env.REACT_APP_SPOTIFY_ID;
   const responseType = "token";
-  const redirectUri = "http://localhost:3000";
+  const redirectUri = "https://flowso.vercel.app/";
   const scope = "playlist-modify-private";
   const endPoint = "https://accounts.spotify.com/authorize";
 
