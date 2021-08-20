@@ -30,7 +30,7 @@ const TrackCard = ({uri, album, title, artist, image}: TrackData) => {
 
   return (
     <div className={style.card}>
-      <img className={style.image} src={image} alt={title} />
+      <img data-testid="track-image" className={style.image} src={image} alt={title} />
       <Detail title={title} artists={artist} album={album} />
       <button onClick={handleClick} className={style.btn}>
         {
