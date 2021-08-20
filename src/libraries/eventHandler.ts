@@ -2,14 +2,15 @@ import getTrackData from "../services/spotify/getTrack";
 import { useSelector, useDispatch } from "react-redux";
 import { storeSelectedTrack, getTracks, create } from "../store/trackSlice"
 import createPlaylist from "../services/spotify/postPlaylist";
+import { useAppDispatch, useAppSelector } from "../store";
 
 const useEventHandler = () => {
-  const { accessToken, userProfile } = useSelector(state => state.auth);
-  const { selectedTracks, playlist} = useSelector(state => state.track);
+  const { accessToken, userProfile } = useAppSelector(state => state.auth);
+  const { selectedTracks, playlist} = useAppSelector(state => state.track);
 
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   
-  const handleSearch = (e) => {
+  const handleSearch = (e: any) => {
     e.preventDefault();
     const query = e.target.query.value;
     getTrackData(query, accessToken)
@@ -18,7 +19,7 @@ const useEventHandler = () => {
     })
   };
   
-  const handleFormSubmit = (e) => {
+  const handleFormSubmit = (e: any) => {
     e.preventDefault();
     createPlaylist(playlist, accessToken, userProfile, selectedTracks)
     .then(()=> {
@@ -35,7 +36,7 @@ const useEventHandler = () => {
     alert("Playlist Created");
   };
   
-  const handleChange = (e) => {
+  const handleChange = (e: any) => {
     const { name, value } = e.target;
     dispatch(create({ ...playlist, [name]: value }))
   };

@@ -1,4 +1,5 @@
 const createPlaylist = async (obj, accessToken, userProfile, selectedTracks) => {
+  console.log("objek sebelum", obj);
   await fetch(`https://api.spotify.com/v1/users/${userProfile.id}/playlists`, {
     method: "POST",
     headers: {

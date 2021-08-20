@@ -1,6 +1,17 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+type InitialState = {
+  tracks: string[],
+  selectedTracks: string[],
+  playlist: {
+    name: string,
+    description: string,
+    public: boolean,
+    collaborative: boolean,
+  }
+}
+
+const initialState: InitialState = {
   tracks: [],
   selectedTracks: [],
   playlist: {
