@@ -1,5 +1,6 @@
 import { handleAuth } from "../../services/spotify/auth";
 import Footer from "../../components/layout/Footer"
+import Button from "../../components/Button";
 
 export default function Landing() {
   return (
@@ -7,7 +8,7 @@ export default function Landing() {
       <div>
         <h1>Welcome Fellas</h1>
         <p>To continue, log in with Spotify</p>
-        <button onClick={() => window.location = handleAuth()}>Login</button>
+        <Button onClick={() => window.location = handleAuth()} label="Login">Login</Button>
       </div>
       <Footer />
     </div>
