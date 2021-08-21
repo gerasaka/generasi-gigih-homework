@@ -1,4 +1,4 @@
-import "./style.module.css"
+import "./style.module.css";
 
 const Footer = () => {
   return (
@@ -6,6 +6,6 @@ const Footer = () => {
       <p>Flowso app by gerasaka.</p>
     </footer>
   );
-}
+};
 
 export default Footer;

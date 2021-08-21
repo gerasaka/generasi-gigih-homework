@@ -1,4 +1,8 @@
 footer {
+  color: #424874;
+  font-family: "Roboto", sans-serif;
+  font-style: italic;
+  font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
