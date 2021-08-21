@@ -1,0 +1,58 @@
+.container {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main {
+  flex-grow: 1;
+  display: grid;
+  grid-template-rows: 100%;
+  grid-template-columns: 60%;
+  align-items: center;
+}
+
+.callAction {
+  text-align: center;
+  max-width: 550px;
+  margin-left: 100px;
+}
+
+.greeting {
+  color: #424874;
+  font-family: "Rampart One";
+  font-size: 50px;
+}
+
+.desc {
+  text-align: center;
+  box-sizing: content-box;
+  background-color: #42487488;
+  border-radius: 20px;
+  padding: 5px;
+  color: #F0D9FF;
+  font-weight: bold;
+  font-size: 30px;
+  margin-bottom: 5vh;
+}
+
+.imageBg, .imageDeco {
+  position: absolute;
+  z-index: -5;
+}
+
+.imageBg {
+  right: 0;
+  height: 100vh;
+}
+
+.imageDeco {
+  left: -50px;
+  top: -50px;
+  height: 60%;
+}
+
+footer {
+  font-size: 20px;
+  backdrop-filter: blur(10px);
+}
