@@ -1,4 +1,42 @@
 header {
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  color: #BFA2DB;
+  background-color: #424874;
+
+  display: grid;
+  grid-template-columns: 1fr 3fr 1fr;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.logo {
+  color: aqua;
+  font-style: italic;
+  font-size: 24px;
+}
+
+.navItem {
+  border-radius: 5px;
+  display: block;
+  margin: 10px;
+  padding: 10px;
+}
+.navItem:hover {
+  color: #F4EEFF;
+  background-color: #A6B1E1;
+}
+
+ul {list-style-type:none;}
+li {display:inline-block;}
+
+.avatar {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+p {
+  position: relative;
+  right: 10px;
 }
