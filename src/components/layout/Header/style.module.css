@@ -20,7 +20,7 @@ header {
   border-radius: 5px;
   display: block;
   margin: 10px;
-  padding: 10px;
+  padding: 5px 10px;
 }
 .navItem:hover {
   color: #F4EEFF;
@@ -30,13 +30,21 @@ header {
 ul {list-style-type:none;}
 li {display:inline-block;}
 
-.avatar {
+.avatarContainer {
   display: flex;
   justify-content: flex-end;
-  align-items: center;
 }
 
-p {
-  position: relative;
-  right: 10px;
+.avatarName {
+  color: #424874;
+  padding: 0 15px;
+}
+
+.avatarDesc {
+  display: flex;
+  align-items: center;  
+  box-sizing: content-box;
+  border-radius: 20px;
+  background-color: #BFA2DB;
+  padding: 2px;
 }

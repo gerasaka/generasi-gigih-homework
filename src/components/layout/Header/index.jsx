@@ -18,9 +18,11 @@ const Header = () => {
         </ul>
       </nav>
 
-      <div className={style.avatar}>
-        <p>Your Name</p>
-        <Avatar name="Oshigaki Kisame" src="https://bit.ly/dan-abramov" />
+      <div className={style.avatarContainer}>
+        <div className={style.avatarDesc}>
+        <p className={style.avatarName}>Your Name</p>
+        <Avatar size="sm" name="Oshigaki Kisame" src="https://bit.ly/dan-abramov" />
+        </div>
       </div>
     </header>
   );
