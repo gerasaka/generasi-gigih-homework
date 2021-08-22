@@ -1,9 +1,16 @@
 footer {
-  color: #424874;
   font-family: "Roboto", sans-serif;
+  color: #424874;
+  font-size: 20px;
   font-style: italic;
   font-weight: bold;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+.desc {
+  padding: 0 20px;
+  border-radius: 20px;
+  backdrop-filter: blur(10px);
 }

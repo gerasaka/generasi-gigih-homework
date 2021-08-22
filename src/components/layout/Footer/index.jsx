@@ -1,9 +1,9 @@
-import "./style.module.css";
+import style from "./style.module.css";
 
 const Footer = () => {
   return (
     <footer>
-      <p>Flowso app by gerasaka.</p>
+      <p className={style.desc}>Flowso app by gerasaka.</p>
     </footer>
   );
 };
