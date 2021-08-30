@@ -69,7 +69,7 @@ const Header = () => {
           {/* <ModalHeader>LOLOLOLOLO</ModalHeader> */}
           <ModalCloseButton color="red" />
           <ModalBody>
-            <img
+            <Avatar
               size="lg"
               name={userProfile.display_name}
               src="https://i.scdn.co/image/ab6775700000ee850df99207e231104e24770f49"
