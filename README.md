@@ -51,15 +51,15 @@ Go to the project directory
  
  - Type this command below to your terminal.
 ```bash
-  yarn
+  yarn install
 ```
 or 
 ```bash
-  yarn install
+  npm install
 ```
 ## 5. Launch the App
 ```bash
   yarn start
 ```
-or
+and
 - Open http://localhost:3000 in your browser to see the result.
