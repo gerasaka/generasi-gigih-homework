@@ -1,11 +1,11 @@
 import getTrackData from "../services/spotify/getTrack";
-import { storeSelectedTrack, getTracks, create } from "../store/trackSlice"
-import createPlaylist from "../services/spotify/postPlaylist";
-import { useAppDispatch, useAppSelector } from "../store";
+import { storeSelectedTrack, getTracks, create } from "../redux/trackSlice"
+import { createPlaylist } from "../services/spotify/postPlaylist";
+import { useAppDispatch, useAppSelector } from "../redux/store";
 
 const useEventHandler = () => {
-  const { accessToken, userProfile } = useAppSelector(state => state.auth);
-  const { selectedTracks, playlist} = useAppSelector(state => state.track);
+  const { accessToken, userProfile } = useAppSelector((state: any) => state.auth);
+  const { selectedTracks, playlist} = useAppSelector((state: any) => state.track);
 
   const dispatch = useAppDispatch();
   
@@ -30,6 +30,7 @@ const useEventHandler = () => {
         collaborative: false,
       }))
     })
+    e.target.reset();
   
     console.log(playlist);
     alert("Playlist Created");

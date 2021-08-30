@@ -1,42 +1,51 @@
 import Detail from "../TrackDetail";
-// import Button from "../Button";
 
 import style from "./style.module.css";
-import { storeSelectedTrack } from "../../store/trackSlice";
-
-import { useAppDispatch, useAppSelector } from "../../store";
+import { Button } from "@chakra-ui/button";
+import { storeSelectedTrack } from "../../redux/trackSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 
 type TrackData = {
   uri: string;
-  album: string
+  album: string;
   title: string;
   artist: string;
   image: string;
 };
 
-const TrackCard = ({uri, album, title, artist, image}: TrackData) => {
-  const {selectedTracks} = useAppSelector(state => state.track);
+const TrackCard = ({ uri, album, title, artist, image }: TrackData) => {
+  const { selectedTracks } = useAppSelector((state) => state.track);
   const dispatch = useAppDispatch();
 
-	// const {uri, album, title, artist, image} = props;
-
   const handleClick = (): void => {
-    if (selectedTracks.includes(uri)) {
-      dispatch(storeSelectedTrack(selectedTracks.filter((value: any) =>  value !== uri)))
+    if (selectedTracks.some(track => track.uri === uri)) {
+      dispatch(
+        storeSelectedTrack(selectedTracks.filter((track) => track.uri !== uri))
+      );
     } else {
-      dispatch(storeSelectedTrack([...selectedTracks, uri]))
-		}
+      dispatch(storeSelectedTrack([...selectedTracks, {uri: uri, title: title, artists: artist}]));
+    }
   };
 
   return (
     <div className={style.card}>
-      <img data-testid="track-image" className={style.image} src={image} alt={title} />
+      <img
+        data-testid="track-image"
+        className={style.image}
+        src={image}
+        alt={title}
+      />
       <Detail title={title} artists={artist} album={album} />
-      <button onClick={handleClick} className={style.btn}>
-        {
-          selectedTracks.includes(uri) ? "Deselect" : "Select"
-        }
-      </button>
+      <Button
+        type="submit"
+        className={style.btn}
+        backgroundColor="#DCD6F7"
+        color="#424874 "
+        borderRadius="20px"
+        onClick={handleClick}
+      >
+        {selectedTracks.some(track => track.uri === uri) ? "Deselect" : "Select"}
+      </Button>
     </div>
   );
 };

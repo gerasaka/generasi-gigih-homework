@@ -27,12 +27,13 @@
 .desc {
   box-sizing: content-box;
   padding-bottom: 10px;
-  color: #F0D9FF;
+  color: white;
   font-weight: bold;
   font-size: 30px;
   margin-bottom: 3vh;
   background: url(https://s2.svgbox.net/pen-brushes.svg?ic=brush-9&color=4248748f);
 }
+
 
 .imageBg, .imageDeco {
   position: absolute;

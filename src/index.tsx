@@ -1,16 +1,28 @@
 import React from "react";
 import ReactDOM from "react-dom";
+import reportWebVitals from "./reportWebVitals";
+// pages
 import "./index.css";
 import App from "./App";
-import reportWebVitals from "./reportWebVitals";
+// third-party
 import { Provider } from "react-redux";
-import store from "./store";
-import { ChakraProvider } from '@chakra-ui/react';
+import store from "./redux/store";
+import { ChakraProvider, extendTheme } from '@chakra-ui/react';
+
+const theme = extendTheme({
+  styles: {
+    global: {
+      body: {
+        fontFamily: "Roboto",
+      },
+    },
+  },
+})
 
 ReactDOM.render(
   <React.StrictMode>    
     <Provider store={store}>
-      <ChakraProvider>
+      <ChakraProvider theme={theme}>
         <App />
       </ChakraProvider>
     </Provider>    

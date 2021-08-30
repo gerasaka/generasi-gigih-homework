@@ -2,14 +2,5 @@
     box-sizing: border-box;
     height: 100px;
     text-align: left;
-    /* padding-left: 10px; */
-    width: 350px;
-}
-
-.title, .artists{ margin: 0 0 5px 0; }
-
-.title, .artists, .album {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    padding: 0 8px;
 }
