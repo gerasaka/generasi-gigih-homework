@@ -1,8 +1,12 @@
 import style from "./style.module.css";
 import { Link } from "react-router-dom";
+// import { IoIosArrowRoundForward } from "react-icons/io";
+import { IoLogOutOutline } from "react-icons/io5";
 import {
   Avatar,
   Button,
+  Box,
+  Text,
   Modal,
   ModalBody,
   ModalCloseButton,
@@ -15,7 +19,7 @@ import { useDisclosure } from "@chakra-ui/hooks";
 import { useSelector, useDispatch } from "react-redux";
 
 import { getCurrentUser } from "../../../services/spotify/getData";
-import { storeUser } from "../../../redux/authSlice";
+import { storeUser, logout } from "../../../redux/authSlice";
 
 import { useEffect } from "react";
 
@@ -28,6 +32,10 @@ const Header = () => {
   useEffect(() => {
     getCurrentUser(accessToken).then((data) => dispatch(storeUser(data)));
   }, [dispatch, accessToken]);
+
+  const logOut = () => {
+    dispatch(logout());
+  };
 
   return (
     <header>
@@ -47,18 +55,24 @@ const Header = () => {
           </li>
         </ul>
       </nav>
-      <>
-      </>
+      <></>
       <div className={style.avatarContainer}>
-        <Button className={style.avatarDesc} onClick={onOpen} colorScheme="purple">
+        <Button
+          className={style.avatarDesc}
+          onClick={onOpen}
+          backgroundColor="rgba(129,140,248)"
+          _hover={{
+            background: "#1DB954",
+          }}
+        >
           <p className={style.avatarName}>{userProfile.display_name}</p>
           {userProfile.images && (
-          <Avatar
-            size="sm"
-            name={userProfile.display_name}
-            // src="https://i.scdn.co/image/ab6775700000ee850df99207e231104e24770f49"
-            src={userProfile.images[0].url}
-          />
+            <Avatar
+              size="sm"
+              name={userProfile.display_name}
+              // src="https://i.scdn.co/image/ab6775700000ee850df99207e231104e24770f49"
+              src={userProfile.images[0].url}
+            />
           )}
         </Button>
       </div>
@@ -66,22 +80,40 @@ const Header = () => {
       <Modal isOpen={isOpen} onClose={onClose} motionPreset="slideInRight">
         <ModalOverlay />
         <ModalContent>
-          {/* <ModalHeader>LOLOLOLOLO</ModalHeader> */}
-          <ModalCloseButton color="red" />
+          <ModalCloseButton />
           <ModalBody>
-            <Avatar
-              size="lg"
-              name={userProfile.display_name}
-              src="https://i.scdn.co/image/ab6775700000ee850df99207e231104e24770f49"
-            />
-            <p>{userProfile.display_name}</p>
-            <p>tekotek kotek kotek tekotek</p>
+            <Box display="flex">
+              <Avatar
+                size="lg"
+                name={userProfile.display_name}
+                src="https://i.scdn.co/image/ab6775700000ee850df99207e231104e24770f49"
+              />
+              <Text fontWeight="bold" fontSize="20px" m="auto 10px">
+                {userProfile.display_name}
+              </Text>
+            </Box>
+            <Text>{userProfile.email}</Text>
           </ModalBody>
 
           <ModalFooter>
-            <Button colorScheme="blue" mr={3} onClick={onClose}>
+            <Button
+              color="red"
+              onClick={logOut}
+              backgroundColor="white"
+              marginLeft="10px"
+              rightIcon={<IoLogOutOutline />}
+            >
               Log Out
             </Button>
+            {/* <Button
+              rightIcon={<IoIosArrowRoundForward />}
+              backgroundColor="#1DB954"
+              color="white"
+            >
+              <a href={userProfile.external_urls.spotify}>
+                Go to Account
+              </a>
+            </Button> */}
           </ModalFooter>
         </ModalContent>
       </Modal>

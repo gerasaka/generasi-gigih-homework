@@ -38,12 +38,3 @@ li {display:inline-block;}
   color: aliceblue;
   padding: 0 15px;
 }
-
-.avatarDesc {
-  display: flex;
-  align-items: center;  
-  box-sizing: content-box;
-  border-radius: 20px;
-  background-color: #A6B1E1;
-  padding: 2px;
-}
