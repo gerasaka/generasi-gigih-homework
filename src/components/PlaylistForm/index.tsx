@@ -1,11 +1,19 @@
 import useEventHandler from "../../libraries/eventHandler";
 import style from "./style.module.css";
-import { Input, Textarea, Button, Text, Box, Divider } from "@chakra-ui/react";
-import { useAppSelector } from "../../redux/store";
+import { Input, Textarea, Button, Text, Box, Divider, CloseButton } from "@chakra-ui/react";
+import { useAppSelector, useAppDispatch } from "../../redux/store";
+import { storeSelectedTrack } from "../../redux/trackSlice";
 
 const PlaylistForm = () => {
   const { handleFormSubmit, handleChange } = useEventHandler();
-  const { selectedTracks } = useAppSelector((state: any) => state.track);
+  const { selectedTracks } = useAppSelector((state) => state.track);
+  const dispatch = useAppDispatch();
+
+  const handleClick = (uri:string): void => {
+    dispatch(
+      storeSelectedTrack(selectedTracks.filter((track) => track.uri !== uri))
+    );
+  };
 
   return (
     <Box maxW="90%">
@@ -53,18 +61,31 @@ const PlaylistForm = () => {
       </form>
 
       <Divider colorScheme="blackAlpha" />
-      <p>Selected Tracks</p>
+      <p className={style.text}>Selected Tracks</p>
       <Box>
-        {          
-          selectedTracks.map((track: any) => (            
-          <Box key={track.uri}>
-            <Text isTruncated>{track.title}</Text>
-            <Text isTruncated>{track.artists}</Text>
-          </Box>
+        {selectedTracks.map(
+          (track: any) => (
+            <Box
+              key={track.uri}
+              borderRadius="10px"
+              marginBottom="2"
+              p="5px"
+              _hover={{
+                background: "#DCD6F7",
+                color: "#424874",
+              }}
+              position="relative"
+            >
+              <Box width="90%">
+                <Text isTruncated>{track.title}</Text>
+                <Text isTruncated color="#7F7C82">
+                  {track.artists}
+                </Text>                
+              </Box>
+              <CloseButton size="sm" position="absolute" top="1" right="1" onClick={() => handleClick(track.uri)} />
+            </Box>
           )
-            // console.log(obeje.a);
-          )
-        }
+        )}
       </Box>
     </Box>
   );

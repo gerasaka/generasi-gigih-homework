@@ -40,7 +40,7 @@ const TrackCard = ({ uri, album, title, artist, image }: TrackData) => {
         type="submit"
         className={style.btn}
         backgroundColor="#DCD6F7"
-        color="#424874 "
+        color="#424874"
         borderRadius="20px"
         onClick={handleClick}
       >
