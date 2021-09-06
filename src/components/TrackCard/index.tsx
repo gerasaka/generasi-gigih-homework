@@ -36,16 +36,29 @@ const TrackCard = ({ uri, album, title, artist, image }: TrackData) => {
         alt={title}
       />
       <Detail title={title} artists={artist} album={album} />
-      <Button
-        type="submit"
-        className={style.btn}
-        backgroundColor="#DCD6F7"
-        color="#424874"
-        borderRadius="20px"
-        onClick={handleClick}
-      >
-        {selectedTracks.some(track => track.uri === uri) ? "Deselect" : "Select"}
-      </Button>
+      {
+        selectedTracks.some(track => track.uri === uri) ? 
+        <Button
+          type="submit"
+          className={style.btn}
+          backgroundColor="white"
+          color="#7F7C82"
+          borderRadius="20px"
+          onClick={handleClick}
+        >
+          Deselect
+        </Button> :
+        <Button
+          type="submit"
+          className={style.btn}
+          backgroundColor="#DCD6F7"
+          color="#424874"
+          borderRadius="20px"
+          onClick={handleClick}
+        >
+          Select
+        </Button>
+      }
     </div>
   );
 };
