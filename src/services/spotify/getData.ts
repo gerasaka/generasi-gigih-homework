@@ -19,6 +19,13 @@ const getUserPlaylists = async (accessToken: string) => {
   }).then(res => res.json());
 };
 
+const getPlaylistTracks = async (accessToken: string, playlistID: string) => {
+  const url = `https://api.spotify.com/v1/playlists/${playlistID}/tracks?market=ID&limit=50`;
+  return await fetch(url, {
+    headers: { Authorization: "Bearer " + accessToken }
+  }).then(res => res.json());
+}
+
 const getUserRecommendation = async (accessToken: string) => {
   const url = `https://api.spotify.com/v1/recommendations?limit=20&seed_artist=4NHQUGzhtTLFvgF5SZesLK&seed_genres=classical&seed_tracks=0c6xIDDpzE81m2q797ordA`;
   return await fetch(url, {
@@ -26,4 +33,4 @@ const getUserRecommendation = async (accessToken: string) => {
   }).then(res => res.json());
 }
 
-export {getTrack, getCurrentUser, getUserPlaylists, getUserRecommendation}
+export {getTrack, getCurrentUser, getUserPlaylists, getUserRecommendation, getPlaylistTracks}
